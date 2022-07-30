@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView
+
 from .models import Post
 
 
-def listar_posts(request):
-    posts = Post.publicadas.all()
-    context = {'posts': posts}
-    return render(request, 'blog/post/posts.html', context)
+class PostListView(ListView):
+    queryset = Post.publicadas.all()
+    context_object_name = 'posts'
+    paginate_by = 3
+    template_name = 'blog/post/posts.html'
 
 
 def detalhe_post(request, ano, mes, dia, post):

@@ -2,7 +2,6 @@
 
 {% block title %} Meu Blog {% endblock %}
 {% block content %}
-    <h2>Meu blog</h2>
     {% for post in posts %}
         <h3>
             <a href="{{ post.get_absolute_url }}">
@@ -10,8 +9,9 @@
             </a>
         </h3>
         <p class="date">
-            Publicação {{ post.publicada }} by {{ post.autor }}
+            Publicação {{ post.publicada }} usuário {{ post.autor }}
         </p>
         {{ post.corpo|truncatewords:30|linebreaks }}
     {% endfor %}
+    {% include "paginacao.html" with page=page_obj %}
 {% endblock %}
