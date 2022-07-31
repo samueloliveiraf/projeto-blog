@@ -1,17 +1,24 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} Meu Blog {% endblock %}
+{% block link %}
+    <link href="{% static 'css/blog.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+{% endblock %}
+
 {% block content %}
     {% for post in posts %}
-        <h3>
-            <a href="{{ post.get_absolute_url }}">
-                {{ post.titulo }}
-            </a>
-        </h3>
-        <p class="date">
-            Publicação {{ post.publicada }} usuário {{ post.autor }}
-        </p>
-        {{ post.corpo|truncatewords:30|linebreaks }}
+        <a href="{{ post.get_absolute_url }}">
+            <div class="card p-3 mt-3 shadow p-1 rounded">
+                <h3>
+                    {{ post.titulo }}
+                </h3>
+                <p class="date">
+                    Publicação {{ post.publicada }} usuário {{ post.autor }}
+                </p>
+                {{ post.corpo|truncatewords:30|linebreaks }}
+            </div>
+        </a>
     {% endfor %}
     {% include "paginacao.html" with page=page_obj %}
 {% endblock %}

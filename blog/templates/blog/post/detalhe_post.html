@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block title %} {{ post.titulo }} {% endblock %}
+{% block link %}
+    <link href="{% static 'css/blog.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+{% endblock %}
+
 {% block content %}
-    <p class="date">
-        Publicação {{ post.publicada }} by {{ post.autor }}
-    </p>
-    {{ post.corpo|linebreaks }}
+    <div class="card p-3 mt-3 shadow p-1 rounded">
+        <h3 class="date">
+            Publicação {{ post.publicada }} by {{ post.autor }}
+        </h3>
+        {{ post.corpo|linebreaks }}
+    </div>
 {% endblock %}

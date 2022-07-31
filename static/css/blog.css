@@ -6,3 +6,12 @@ body {
 a {
     text-decoration: none !important;
 }
+
+.card {
+    border-radius: 9px !important;
+    color: #0d6efd !important;
+}
+
+nav {
+    border-radius: 0px 0px 12px 12px !important;
+}
