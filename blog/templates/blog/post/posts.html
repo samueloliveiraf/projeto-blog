@@ -14,9 +14,16 @@
                     {{ post.titulo }}
                 </h3>
                 <p class="date">
-                    Publicação {{ post.publicada }} usuário {{ post.autor }}
+                    Publicação {{ post.publicada }} by {{ post.autor }}
                 </p>
                 {{ post.corpo|truncatewords:30|linebreaks }}
+
+                <p>
+                    <a href="{% url 'blog:compartilhar_post' post.id %}">
+                        Compartilhar
+                    </a>
+                </p>
+
             </div>
         </a>
     {% endfor %}

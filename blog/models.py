@@ -46,3 +46,18 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.titulo}'
 
+
+class Comentario(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comentario')
+    nome = models.CharField(max_length=80)
+    email = models.EmailField()
+    corpo = models.TextField()
+    criado = models.DateTimeField(auto_now_add=True)
+    atualizado = models.DateTimeField(auto_now=True)
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = 'Comentário'
+        verbose_name_plural = 'Comentários'
+        ordering = ('-criado',)
+        db_table = 'comentarios'

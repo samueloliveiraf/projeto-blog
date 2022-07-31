@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap %}
+
+{% block title %} Meu Blog {% endblock %}
+{% block link %}
+    <link href="{% static 'css/blog.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+    {% if enviado %}
+        <div class="card shadow p-3 rounded mb-4 mt-2">
+            <h3>E-mail enviado com sucesso!</h3>
+            <p>
+                "{{ post.titulo }}" formulário enviado {{ form.cleaned_data.email_destino }}
+            </p>
+        </div>
+    {% else %}
+        <div class="card shadow p-3 rounded mb-4 mt-2">
+            <h3>Compartilhar "{{ post.titulo }}" por email</h3>
+            <form method="POST"> {% csrf_token %}
+                {{ form|bootstrap }}
+                <button class="btn btn-primary mt-3" type="submit">
+                    Enviar E-mail
+                </button>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
