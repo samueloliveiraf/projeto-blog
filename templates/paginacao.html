@@ -1,19 +1,19 @@
 <ul class="pagination d-flex justify-content-center mt-3">
-    {% if page_obj.has_previous %}
+    {% if page.has_previous %}
     <li class="page-item active">
-        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        <a class="page-link" href="?page={{ page.previous_page_number }}">Anterior</a>
     </li>
     {% else %}
     <li class="page-item disabled">
         <a class="page-link" href="#">Anterior</a>
     </li>
-    {% endif %} {% for object in page_obj.paginator.page_range %}
+    {% endif %} {% for object in page.paginator.page_range %}
     <li class="page-item waves-effect">
         <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
     </li>
-    {% endfor %}{% if page_obj.has_next %}
+    {% endfor %}{% if page.has_next %}
     <li class="page-item waves-effect active">
-        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próximo</a>
+        <a class="page-link" href="?page={{ page.next_page_number }}">Próximo</a>
     </li>
     {% else %}
     <li class="page-item waves-effect disabled">

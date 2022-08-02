@@ -8,37 +8,24 @@
 {% endblock %}
 
 {% block content %}
-    <div class="card p-3 mt-3 shadow p-1 rounded">
+    <div class="card p-3 mt-3">
         <h3 class="date">
             Publicação {{ post.publicada }} by {{ post.autor }}
         </h3>
         {{ post.corpo|linebreaks }}
-         {% with comentarios.count as total_comentarios %}
+        {% with comentarios.count as total_comentarios %}
             <h4>
                 {{ total_comentarios }} comentário{{ total_comentarios|pluralize }}
             </h4>
         {% endwith %}
     </div>
 
-    <div class="card p-3 mt-3 shadow p-1 rounded">
-        {% for comentario in comentarios %}
-            <p>
-                Comentário {{ forloop.counter }} by {{ comentario.nome }}
-            </p>
-            {{ comentario.corpo|linebreaks }}
-            {% empty %}
-            <p>
-                Ainda não há comentário
-            </p>
-        {% endfor %}
-    </div>
-
     {% if novo_comentario %}
-        <div class="card p-3 mt-3 mb-4 shadow p-1 rounded">
+        <div class="alert alert-success mt-3 mb-3">
             <h3>Comentário adicionado com sucesso!</h3>
         </div>
     {% else %}
-        <div class="card p-3 mt-3 shadow p-1 rounded">
+        <div class="card p-3 mt-3 mb-3 rounded">
             <h3>Adicionar comentário</h3>
             <form method="POST"> {% csrf_token %}
                 {{ comentario_form|bootstrap }}
@@ -48,5 +35,20 @@
             </form>
         </div>
     {% endif %}
+
+    {% for comentario in comentarios %}
+        <div class="card p-3 mt-3 mb-3 rounded">
+            <p>
+                Comentário {{ forloop.counter }} by {{ comentario.nome }}
+            </p>
+            {{ comentario.corpo|linebreaks }}
+        </div>
+            {% empty %}
+            <div class="card p-3 mt-3 mb-3 shadow rounded">
+                <p>
+                    Ainda não há comentário
+                </p>
+            </div>
+    {% endfor %}
 
 {% endblock %}

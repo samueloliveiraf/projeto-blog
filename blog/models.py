@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.urls import reverse
 from django.db import models
 
+from taggit.managers import TaggableManager
+
 
 class PublicadasManager(models.Manager):
     def get_queryset(self):
@@ -25,6 +27,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='rascunho')
     objetos = models.Manager()
     publicadas = PublicadasManager()
+    tags = TaggableManager()
 
     class Meta:
         verbose_name = 'Post'

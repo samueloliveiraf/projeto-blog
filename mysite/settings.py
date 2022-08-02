@@ -38,6 +38,7 @@ DEFAULT_APPS = [
 
 THIRD_APPS = [
     'bootstrapform',
+    'taggit'
 ]
 
 PROJECT_APPS = [
