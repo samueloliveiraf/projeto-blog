@@ -2,6 +2,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.core.mail import send_mail
+from django.db.models import Count
 from taggit.models import Tag
 
 from .forms import EmailPostForm, ComentarioForm
@@ -15,7 +16,7 @@ from .models import Post
 #     template_name = 'blog/post/posts.html'
 
 
-def post_list(request, tag_slug=None):
+def lista_post(request, tag_slug=None):
     object_list = Post.publicadas.all()
     tag = None
 
@@ -52,6 +53,10 @@ def detalhe_post(request, ano, mes, dia, post):
     comentarios = post.comentario.filter(ativo=True)
     novo_comentario = None
 
+    posts_tags_ids = post.tags.values_list('id', flat=True)
+    similar_posts = Post.publicadas.filter(tags__in=posts_tags_ids).exclude(id=post.id)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', 'publicada')[:4]
+
     if request.method == 'POST':
         comentario_form = ComentarioForm(data=request.POST)
         if comentario_form.is_valid():
@@ -65,7 +70,8 @@ def detalhe_post(request, ano, mes, dia, post):
         'post': post,
         'comentarios': comentarios,
         'novo_comentario': novo_comentario,
-        'comentario_form': comentario_form
+        'comentario_form': comentario_form,
+        'similar_posts': similar_posts
     }
 
     return render(request, template, context)

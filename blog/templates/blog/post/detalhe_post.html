@@ -8,6 +8,15 @@
 {% endblock %}
 
 {% block content %}
+     <div class="card p-3 mt-3">
+        <h3>Publicação similares</h3>
+        {% for post in similar_posts %}
+            <a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a>
+        {% empty %}
+            Não há postagens simiulares
+        {% endfor %}
+     </div>
+
     <div class="card p-3 mt-3">
         <h3 class="date">
             Publicação {{ post.publicada }} by {{ post.autor }}

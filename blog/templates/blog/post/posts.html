@@ -14,11 +14,12 @@
     {% endif %}
 
     {% for post in posts %}
-        <a href="{{ post.get_absolute_url }}">
             <div class="card p-3 mt-3">
-                <h3>
-                    {{ post.titulo }}
-                </h3>
+                <a href="{{ post.get_absolute_url }}">
+                    <h3>
+                        {{ post.titulo }}
+                    </h3>
+                </a>
                 <p class="tags">
                     Tags: {% for tag in post.tags.all %}
                         <a href="{% url 'blog:listar_post_by_tag' tag.slug %}">
@@ -39,7 +40,6 @@
                 </p>
 
             </div>
-        </a>
     {% endfor %}
     {% include "paginacao.html" with page=posts %}
 {% endblock %}

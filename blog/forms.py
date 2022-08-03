@@ -4,7 +4,6 @@ from .models import Comentario
 
 class EmailPostForm(forms.Form):
     nome = forms.CharField(max_length=150)
-    email = forms.EmailField()
     email_destino = forms.EmailField()
     comentario = forms.CharField(required=False, widget=forms.Textarea)
 
