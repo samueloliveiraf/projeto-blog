@@ -35,3 +35,7 @@ nav {
 input {
     border-radius: 12px !important;
 }
+
+ul {
+    list-style: none;
+}

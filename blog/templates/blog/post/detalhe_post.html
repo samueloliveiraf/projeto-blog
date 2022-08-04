@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-     <div class="card p-3 mt-3">
+     <div class="card p-3 mt-1">
         <h3>Publicação similares</h3>
         {% for post in similar_posts %}
             <a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a>
@@ -53,7 +53,7 @@
             {{ comentario.corpo|linebreaks }}
         </div>
             {% empty %}
-            <div class="card p-3 mt-3 mb-3 shadow rounded">
+            <div class="card p-3 mt-1 mb-3 shadow rounded">
                 <p>
                     Ainda não há comentário
                 </p>

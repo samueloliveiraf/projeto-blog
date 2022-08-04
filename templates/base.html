@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -11,22 +12,46 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-white">
-        <div class="container-fluid">
-            <a href="{% url 'blog:listar_posts' %}" class="navbar-brand">
-                Blog do Samuel
-            </a>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-                <button class="btn btn-outline-primary" type="submit">Buscar</button>
-            </form>
-        </div>
-    </nav>
-
-    <div class="container mt-3" id="content">
-        {% block content %}
-        {% endblock %}
+<nav class="navbar navbar-dark bg-white">
+    <div class="container-fluid">
+        <a href="{% url 'blog:listar_posts' %}" class="navbar-brand">
+            Blog do Samuel
+        </a>
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+            <button class="btn btn-outline-primary" type="submit">
+                Buscar
+            </button>
+        </form>
+        <button class="btn btn-outline-primary" type="submit">
+            Post {% total_posts %}
+        </button>
     </div>
+</nav>
+
+<div class="container mt-4" id="content">
+    <div class="row">
+        <div class="col-4 card mt-1">
+            <h2 class="mt-4">Ultimos Posts</h2>
+            {% ver_ultimos_posts %}
+            <h2 class="mt-4">Posts mais comentados</h2>
+            {% posts_mais_comentados as posts_mais %}
+            <ul>
+                {% for post in posts_mais %}
+                    <li>
+                        <a href="{{ post.get_absolute_url }}">
+                            {{ post.titulo }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
 
 </body>
 <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
