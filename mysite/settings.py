@@ -1,9 +1,9 @@
 from pathlib import Path
+import dj_database_url
 import os
 
 
 from prettyconf import Configuration
-from decouple import config
 
 
 config_prettyconf = Configuration()
@@ -17,12 +17,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = config_prettyconf('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = config_prettyconf('DEBUG')
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=config_prettyconf.list)
+ALLOWED_HOSTS = config_prettyconf('ALLOWED_HOSTS', cast=config_prettyconf.list)
 
 
 # Application definition
@@ -87,14 +87,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-    }
+    "default":  dj_database_url.parse(config_prettyconf('DATABASE_URL'))
 }
 
 # Password validation
@@ -145,8 +138,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Servidor de Email
 
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS')
+EMAIL_HOST = "smtp-relay.sendinblue.com"
+EMAIL_PORT = "587"
+EMAIL_HOST_USER = "samueldjangoex42@gmail.com"
+EMAIL_HOST_PASSWORD = "SsmcnLVFyM49r761"
+EMAIL_USE_TLS = True
