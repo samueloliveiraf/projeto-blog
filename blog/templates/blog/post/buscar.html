@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load blog_tags %}
+{% load bootstrap %}
+
+{% block title %} Buscar {% endblock %}
+{% block link %}
+    <link href="{% static 'css/blog.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+{% endblock %}
+
+{% block content %}
+
+    {% if query %}
+        <h2>Posts que contêm {{ query }}</h2>
+        <h3>
+            {% with resultados.count as total_posts %}
+                Encontrados {{ total_posts }} resultados{{ total_posts|pluralize }}
+            {% endwith %}
+        </h3>
+        {% for post in resultados %}
+            <h4>
+                <a href="{{ post.get_absolute_url }}">{{ post.titulo }}</a>
+            </h4>
+            {{ post.corpo|markdown|truncatechars_html:5 }}
+        {% endfor %}
+        <a href="{% url 'blog:post_buscar' %}">
+            Buscar novamente
+        </a>
+    {% else %}
+        <h3>Buscar posts</h3>
+        <form method="GET">
+            {{ form|bootstrap }}
+            <button class="btn btn-primary" type="submit">
+                Buscar
+            </button>
+        </form>
+    {% endif %}
+
+{% endblock %}

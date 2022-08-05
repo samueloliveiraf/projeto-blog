@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load blog_tags %}
 {% block title %} Meu Blog {% endblock %}
 {% block link %}
     <link href="{% static 'css/blog.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
@@ -8,8 +8,8 @@
 
 {% block content %}
     {% if tag %}
-        <h2 class="card text-xl-center p-2">
-            Post com a mesma tag: {{ tag.name }}
+        <h2 class="card text-xl-center p-2 mt-1">
+            Posts com a tag: {{ tag.name }}
         </h2>
     {% endif %}
 
@@ -31,13 +31,13 @@
                 <p class="date">
                     Publicação {{ post.publicada }} by {{ post.autor }}
                 </p>
-                {{ post.corpo|truncatewords:30|linebreaks }}
+                {{ post.corpo|markdown|truncatechars_html:30 }}
 
-                <p>
-                    <a href="{% url 'blog:compartilhar_post' post.id %}">
+                <a href="{% url 'blog:compartilhar_post' post.id %}">
+                    <button class="btn btn-primary">
                         Compartilhar
-                    </a>
-                </p>
+                    </button>
+                </a>
 
             </div>
     {% endfor %}

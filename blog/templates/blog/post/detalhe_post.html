@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load blog_tags %}
 {% load bootstrap %}
 
 {% block title %} {{ post.titulo }} {% endblock %}
@@ -21,7 +22,7 @@
         <h3 class="date">
             Publicação {{ post.publicada }} by {{ post.autor }}
         </h3>
-        {{ post.corpo|linebreaks }}
+        {{ post.corpo|markdown }}
         {% with comentarios.count as total_comentarios %}
             <h4>
                 {{ total_comentarios }} comentário{{ total_comentarios|pluralize }}
@@ -50,7 +51,7 @@
             <p>
                 Comentário {{ forloop.counter }} by {{ comentario.nome }}
             </p>
-            {{ comentario.corpo|linebreaks }}
+            {{ comentario.corpo|markdown }}
         </div>
             {% empty %}
             <div class="card p-3 mt-1 mb-3 shadow rounded">

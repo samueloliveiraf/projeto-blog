@@ -27,6 +27,8 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=config_prettyconf.list)
 
 # Application definition
 
+SITE_ID = 1
+
 DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -34,6 +36,8 @@ DEFAULT_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps'
 ]
 
 THIRD_APPS = [

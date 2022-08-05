@@ -17,13 +17,7 @@
         <a href="{% url 'blog:listar_posts' %}" class="navbar-brand">
             Blog do Samuel
         </a>
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
-            <button class="btn btn-outline-primary" type="submit">
-                Buscar
-            </button>
-        </form>
-        <button class="btn btn-outline-primary" type="submit">
+        <button class="btn btn-primary" type="submit">
             Post {% total_posts %}
         </button>
     </div>
@@ -31,7 +25,7 @@
 
 <div class="container mt-4" id="content">
     <div class="row">
-        <div class="col-4 card mt-1">
+        <div class="col-4 card mt-1 mb-3">
             <h2 class="mt-4">Ultimos Posts</h2>
             {% ver_ultimos_posts %}
             <h2 class="mt-4">Posts mais comentados</h2>

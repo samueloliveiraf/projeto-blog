@@ -16,3 +16,7 @@ class ComentarioForm(forms.ModelForm):
             'email',
             'corpo'
         )
+
+
+class BuscarForm(forms.Form):
+    query = forms.CharField()

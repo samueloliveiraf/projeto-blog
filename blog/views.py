@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
@@ -5,7 +6,7 @@ from django.core.mail import send_mail
 from django.db.models import Count
 from taggit.models import Tag
 
-from .forms import EmailPostForm, ComentarioForm
+from .forms import EmailPostForm, ComentarioForm, BuscarForm
 from .models import Post
 
 
@@ -106,3 +107,28 @@ def compartilhar_post(request, post_id):
     context = {'post': post, 'form': form, 'enviado': enviado}
 
     return render(request, template, context)
+
+
+def post_buscar(request):
+    form = BuscarForm()
+    query = None
+    resultados = list()
+
+    if 'query' in request.GET:
+        form = BuscarForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            search_vector = SearchVector('titulo', weight='A') + SearchVector('corpo', weight='B')
+            search_quey = SearchQuery(query)
+            resultados = Post.publicadas.annotate(
+                search=search_vector,
+                rank=SearchRank(search_vector, search_quey)
+            ).filter(rank__gte=0.3).order_by('-rank')
+
+    context = {
+        'form': form,
+        'query': query,
+        'resultados': resultados
+    }
+
+    return render(request, 'blog/post/buscar.html', context)

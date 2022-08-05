@@ -1,5 +1,6 @@
 
 body {
+    font-family: Gill Sans Extrabold, sans-serif;
     background: #f2f2f2 !important;
 }
 
@@ -29,11 +30,11 @@ nav {
 }
 
 .btn {
-    border-radius: 12px !important;
+    border-radius: 10px !important;
 }
 
 input {
-    border-radius: 12px !important;
+    border-radius: 10px !important;
 }
 
 ul {
