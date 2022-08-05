@@ -6,6 +6,7 @@ django-bootstrap-form==3.4
 django-taggit==3.0.0
 dj-database-url==1.0.0
 importlib-metadata==4.12.0
+gunicorn==20.1.0
 Markdown==3.4.1
 prettyconf==2.2.1
 psycopg2-binary==2.9.3
